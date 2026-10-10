@@ -1,0 +1,14 @@
+{
+    "schemaVersion":  1,
+    "channel":  "prod",
+    "browserClientPath":  "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.1002.7124.0_x64__2p2nqsd0c76g0\\app\\resources\\plugins\\openai-bundled\\plugins\\chrome\\scripts\\browser-client.mjs",
+    "browserServicePath":  "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.1002.7124.0_x64__2p2nqsd0c76g0\\app\\resources\\plugins\\openai-bundled\\plugins\\chrome\\scripts\\browser-service.mjs",
+    "codexCliPath":  "__USERPROFILE__\\AppData\\Local\\OpenAI\\Codex\\bin\\9691020b546a15b2\\codex.exe",
+    "codexHome":  "__USERPROFILE__\\.codex",
+    "extensionHostPath":  "__USERPROFILE__\\AppData\\Local\\OpenAI\\extension-host\\extension-host.exe",
+    "nodePath":  "__USERPROFILE__\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\3dd31cfff853001c\\bin\\node.exe",
+    "nodeReplPath":  "__USERPROFILE__\\AppData\\Local\\OpenAI\\Codex\\bin\\9691020b546a15b2\\codex-code-mode-host.exe",
+    "resourcesPath":  "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.1002.7124.0_x64__2p2nqsd0c76g0\\app\\resources",
+    "proxyHost":  "127.0.0.1",
+    "proxyPort":  0
+}
