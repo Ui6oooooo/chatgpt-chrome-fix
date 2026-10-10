@@ -32,7 +32,23 @@
         throw "$cx\bin not found. Start the ChatGPT desktop app, wait until its window opens, then run this again."
     }
     if (!(Test-Path "$hostDir\extension-host.exe")) {
-        throw "$hostDir\extension-host.exe not found. Start the ChatGPT desktop app once and retry. If it is still missing, copy extension-host.exe from a working PC into that folder."
+        # The app did not copy its native host out of the package: do it ourselves.
+        $pkgObj  = Get-AppxPackage OpenAI.Codex | Select-Object -First 1
+        $pkgRoot = $pkgObj.InstallLocation
+        $cands   = @(Get-ChildItem $pkgRoot -Recurse -Filter "extension-host.exe" -ErrorAction SilentlyContinue |
+                     Where-Object { $_.Name -eq "extension-host.exe" })
+        if ($cands.Count -gt 1) {
+            # several builds in the package: prefer the one matching this CPU
+            $pat = if ("$($pkgObj.Architecture)" -match "Arm") { "arm64|aarch64" } else { "x64|x86_64|amd64" }
+            $m   = @($cands | Where-Object { $_.FullName.Substring($pkgRoot.Length) -match $pat })
+            if ($m.Count -ge 1) { $cands = $m }
+        }
+        if ($cands.Count -eq 0) {
+            throw "extension-host.exe not found in the app package or in $hostDir. Copy extension-host.exe from a working PC into $hostDir and run this again."
+        }
+        New-Item $hostDir -ItemType Directory -Force | Out-Null
+        Copy-Item $cands[0].FullName "$hostDir\extension-host.exe" -Force
+        "copied host exe from: $($cands[0].FullName)"
     }
 
     # --- 1. remove CLI override if present --------------------------------
