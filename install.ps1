@@ -47,7 +47,9 @@
             throw "extension-host.exe not found in the app package or in $hostDir. Copy extension-host.exe from a working PC into $hostDir and run this again."
         }
         New-Item $hostDir -ItemType Directory -Force | Out-Null
-        Copy-Item $cands[0].FullName "$hostDir\extension-host.exe" -Force
+        # Store package files can carry the EFS "encrypted" attribute; Copy-Item tries to keep it
+        # and fails ("The specified file could not be encrypted"). Copy the bytes instead.
+        [System.IO.File]::WriteAllBytes("$hostDir\extension-host.exe", [System.IO.File]::ReadAllBytes($cands[0].FullName))
         "copied host exe from: $($cands[0].FullName)"
     }
 
